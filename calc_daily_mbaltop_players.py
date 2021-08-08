@@ -9,7 +9,7 @@ import datetime
 import mysql.connector
 import configparser
 
-config_path = os.path.dirname(__file__) + "/config.ini"
+config_path = "./config.ini"
 config = configparser.ConfigParser()
 config.read(config_path, encoding='utf-8')
 

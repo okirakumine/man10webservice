@@ -4,7 +4,7 @@ import mysql.connector
 import datetime
 import configparser
 
-config_path = os.path.dirname(__file__) + "/config.ini"
+config_path = "./config.ini"
 config = configparser.ConfigParser()
 config.read(config_path, encoding='utf-8')
 
@@ -87,7 +87,7 @@ var ex_chart = new Chart(ctx, {{
 </html>
 '''.format(chart_style_str = chart_style_str, labels = total_money_label_list_str, total_data = total_money_total_list_str)
 
-with open(os.path.dirname(__file__) + "/index.html", "w") as f:
+with open("./index.html", "w") as f:
     f.write(html_template)
 
 print("total_money write success!", datetime.datetime.now()) 
