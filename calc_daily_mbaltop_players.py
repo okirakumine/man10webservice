@@ -13,6 +13,17 @@ config_path = os.path.dirname(__file__) + "/config.ini"
 config = configparser.ConfigParser()
 config.read(config_path, encoding='utf-8')
 
+if config == None:
+      print("先にconfig.iniを作成してください")
+      print("必要なパラメータ:")
+      print("[Default] ranking_count")
+      print("[Path] CSV_DIR")
+      print("[MySQL] user")
+      print("[MySQL] password")
+      print("[MySQL] host")
+      print("[Webhook] man10")
+      sys.exit("1")
+
 CSV_DIR=config["Path"]["CSV_DIR"]
 CSV_NAME="mbaltop_latest.csv"
 # 今日の日付のYYMMDDHH
@@ -120,9 +131,9 @@ result_str += "```\n"
 # WebhookでDiscordに送る
 if OUTPUT_FLAG=="http":
     # man10
-    #webhook_url = config["Webhook"]["man10"]
+    webhook_url = config["Webhook"]["man10"]
     # TEST用
-    webhook_url = config["Webhook"]["test"]
+    # webhook_url = config["Webhook"]["test"]
     content = {"content": result_str}
     headers = {"Content-Type": "application/json"}
     response = requests.post(webhook_url, json.dumps(content), headers=headers)

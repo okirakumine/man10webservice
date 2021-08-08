@@ -1,4 +1,5 @@
 #!/usr/bin/env python3                                                                        # -*- coding: utf-8 -*-
+import sys
 import mysql.connector
 import datetime
 import configparser
@@ -7,12 +8,19 @@ config_path = os.path.dirname(__file__) + "/config.ini"
 config = configparser.ConfigParser()
 config.read(config_path, encoding='utf-8')
 
+if config == None:
+    print("先にconfig.iniを作成してください")
+    print("必要なパラメータ:")
+    print("[MySQL] user")
+    print("[MySQL] password")
+    print("[MySQL] host")
+    sys.exit("1")
+
 connection = None
 total_money_label_list = []
 total_money_total_list = []
 
 try:
-
     connection = mysql.connector.connect(
         user=config["MySQL"]["user"],
         password=config["MySQL"]["password"],
