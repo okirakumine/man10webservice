@@ -8,8 +8,9 @@ import json
 import datetime
 import configparser
 
+config_path = os.path.dirname(__file__) + "/config.ini"
 config = configparser.ConfigParser()
-config.read('config.ini', encoding='utf-8')
+config.read(config_path, encoding='utf-8')
 
 if config == None:
     print("先にconfig.iniを作成してください")

@@ -11,8 +11,9 @@ UNIXTIME = int(time.time())
 DATETIME = datetime.datetime.now().strftime("%Y/%m/%d_%H:%M") 
 DATE     = datetime.datetime.now().strftime("%Y%m%d")
 
+config_path = os.path.dirname(__file__) + "/config.ini"
 config = configparser.ConfigParser()
-config.read('config.ini', encoding='utf-8')
+config.read(config_path, encoding='utf-8')
 
 if config == None:
     print("先にconfig.iniを作成してください")
@@ -43,9 +44,7 @@ try:
     cursor = connection.cursor()
     # StatzのDBから、プレイヤー毎の採掘数（降順）を取得するSQL
     sql = ('''select playerName, sum(value) from statz_blocks_broken inner join statz_players on statz_blocks_broken.uuid = statz_players.uuid group by playerName order by sum(value) desc''')
-    
     cursor.execute(sql)
-
     for player, total in cursor:
         block_break_count[player] = total
 
