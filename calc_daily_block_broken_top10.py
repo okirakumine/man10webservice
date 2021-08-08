@@ -62,7 +62,7 @@ result_str += "```\n"
 # WebhookでDiscordに送る
 if OUTPUT_FLAG=="http":
     # shigen のWebhookアドレス
-    webhook_url = config["webhook"]["shigen"]
+    webhook_url = config["Webhook"]["shigen"]
     content = {"content": result_str}
     headers = {"Content-Type": "application/json"}
     response = requests.post(webhook_url, json.dumps(content), headers=headers)
