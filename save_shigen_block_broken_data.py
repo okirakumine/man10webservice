@@ -39,7 +39,7 @@ try:
         user=config["MySQL"]["user"],
         password=config["MySQL"]["password"],
         host=config["MySQL"]["host"],
-        database=config["MySQL"]["database"]
+        database="statz"
     )
     cursor = connection.cursor()
     # StatzのDBから、プレイヤー毎の採掘数（降順）を取得するSQL
