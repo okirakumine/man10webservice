@@ -1,0 +1,14 @@
+[Default]
+ranking_count=10
+
+[MySQL]
+user=
+password=
+host=
+database=
+
+[Path]
+CSV_DIR=
+
+[Webhook]
+url=
