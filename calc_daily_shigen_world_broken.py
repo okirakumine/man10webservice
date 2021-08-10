@@ -27,7 +27,7 @@ if config == None:
 CSV_DIR=config["Path"]["CSV_DIR"]
 CSV_NAME="shigen_breaklog.csv"
 # 今日の日付のYYMMDDHH
-CSV_DATE= datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+CSV_DATE= datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 # ランキングに表示する順位(10なら1～10位まで)
 OUTPUT_FLAG="http"
 
