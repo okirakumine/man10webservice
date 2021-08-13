@@ -56,7 +56,7 @@ daily_list_sorted = sorted(daily_list.items(), key=lambda x:x[1], reverse=True)
 result_str = "資源デイリー採掘数ランキング(" + CSV_DATE + ")```\n"
 for i in range(RANKING_COUNT):
     # 順位データを整形出力
-    result_str += "{: >2d}位: {: >16s} {: >10d}\n".format(i+1, daily_list_sorted[i][0], daily_list_sorted[i][1])
+    result_str += "{: >2d}位: {: >16s} {: >9,d}\n".format(i+1, daily_list_sorted[i][0], daily_list_sorted[i][1])
 result_str += "```\n"
 
 # WebhookでDiscordに送る

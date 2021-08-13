@@ -74,18 +74,18 @@ try:
     )
     cursor = connection.cursor()
     shigen1_broken_count = get_broken_count(cursor, "shigen1")
-    result_str += "{: >13s}: {: >10d} (+ {: >10d})\n".format(
+    result_str += "{: >13s}: {: >10,d} (+ {: >10,d})\n".format(
                   "shigen1", 
                   int(shigen1_broken_count), 
                   int(shigen1_broken_count - int(csv_dict["shigen1"][-1])))
     csv_dict["shigen1"].append(shigen1_broken_count)
 
     shigen2_broken_count = get_broken_count(cursor, "shigen2")
-    result_str += "{: >13s}: {: >10d} (+ {: >10d})\n".format("shigen2", int(shigen2_broken_count), int(shigen2_broken_count - int(csv_dict["shigen2"][-1])))
+    result_str += "{: >13s}: {: >10,d} (+ {: >10,d})\n".format("shigen2", int(shigen2_broken_count), int(shigen2_broken_count - int(csv_dict["shigen2"][-1])))
     csv_dict["shigen2"].append(shigen2_broken_count)
 
     shigen_nether_broken_count = get_broken_count(cursor, "shigen_nether")
-    result_str += "{: >13s}: {: >10d} (+ {: >10d})\n".format("shigen_nether", int(shigen_nether_broken_count), int(shigen_nether_broken_count - int(csv_dict["shigen_nether"][-1])))
+    result_str += "{: >13s}: {: >10,d} (+ {: >10,d})\n".format("shigen_nether", int(shigen_nether_broken_count), int(shigen_nether_broken_count - int(csv_dict["shigen_nether"][-1])))
     csv_dict["shigen_nether"].append(shigen_nether_broken_count)
 
     with open(CSV_PATH, "w") as f:

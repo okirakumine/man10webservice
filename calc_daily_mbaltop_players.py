@@ -106,7 +106,7 @@ try:
                     money_updown_num = int(total_money - csv_dict[player][1])
                     money_updown_mark = get_updown_mark(money_updown_num)
                         
-                    result_str += "{: >2d}位( {} {: >3d}) {: >16s} {: >10d}( {} {: >10d})\n".format(
+                    result_str += "{: >2d}位( {} {: >4d}) {: >16s} {: >12,d}( {} {: >12,d})\n".format(
                                      i,
                                      rank_updown_mark,
                                      rank_updown_num,
@@ -115,7 +115,7 @@ try:
                                      money_updown_mark,
                                      money_updown_num) 
                 else:
-                    result_str += "{: 2d}位( - {: >3s}) {: >16s} {: >10d}( - {: >10s})\n".format(
+                    result_str += "{: 2d}位( - {: >4s}) {: >16s} {: >12,d}( - {: >12s})\n".format(
                                      i,
                                      "NEW",
                                      player,
