@@ -26,12 +26,14 @@ CSV_NAME="block_break_latest.csv"
 CSV_DATE= datetime.datetime.now().strftime("%Y%m%d")
 # ランキングに表示する順位(10なら1～10位まで)
 RANKING_COUNT=int(config["Default"]["ranking_count"])
+# 出力先を示すフラグ
 OUTPUT_FLAG="http"
 
 # 引数で日付(YYMMDD)を与えてもOK
 if len(sys.argv) > 1:
     CSV_DATE=sys.argv[1]
 
+# 引数で"http" 以外を渡した場合はWebhookには送らずに結果をconsole出力する
 if len(sys.argv) > 2:
     OUTPUT_FLAG=sys.argv[2]
 

@@ -28,7 +28,7 @@ CSV_DIR=config["Path"]["CSV_DIR"]
 CSV_NAME="shigen_breaklog.csv"
 # 今日の日付のYYMMDDHH
 CSV_DATE= datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-# ランキングに表示する順位(10なら1～10位まで)
+# 出力先を示すフラグ
 OUTPUT_FLAG="http"
 
 # 引数で"print" を渡した場合はWebhookには送らずに結果をconsole出力する

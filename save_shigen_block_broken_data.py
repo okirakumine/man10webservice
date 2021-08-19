@@ -11,6 +11,7 @@ UNIXTIME = int(time.time())
 DATETIME = datetime.datetime.now().strftime("%Y/%m/%d_%H:%M") 
 DATE     = datetime.datetime.now().strftime("%Y%m%d")
 
+# configの読み込み
 config_path = "./config.ini"
 config = configparser.ConfigParser()
 config.read(config_path, encoding='utf-8')
@@ -34,6 +35,7 @@ connection = None
 print("----- block break log -----")
 
 block_break_count = {}
+# DBからデータを読み出す
 try:
     connection = mysql.connector.connect(
         user=config["MySQL"]["user"],
@@ -47,7 +49,6 @@ try:
     cursor.execute(sql)
     for player, total in cursor:
         block_break_count[player] = total
-
 
 except Exception as e:
     print("[ERROR]: ", e)
@@ -70,6 +71,7 @@ if os.path.exists(LATEST_CSV_PATH):
             playername = row.pop(0)
             block_break_count_history[playername] = [int(s) for s in row]
     os.remove(rename_filepath)
+
 for playername, value in block_break_count.items():
     if not playername in block_break_count_history:
         block_break_count_history[playername] = [0] * (len(header) - 2) # -2: playername, latest value

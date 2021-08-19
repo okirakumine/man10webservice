@@ -4,6 +4,7 @@ import mysql.connector
 import datetime
 import configparser
 
+# config読み込み
 config_path = "./config.ini"
 config = configparser.ConfigParser()
 config.read(config_path, encoding='utf-8')
@@ -20,6 +21,7 @@ connection = None
 total_money_label_list = []
 total_money_total_list = []
 
+# DBに問い合わせてserverのトータル金額の推移を得る
 try:
     connection = mysql.connector.connect(
         user=config["MySQL"]["user"],
@@ -45,11 +47,14 @@ finally:
         connection.close()
         print("close")
 
-
+# チャートのスタイル指定文字列
 chart_style_str = "#total_money_line_chart {max-width:1920px;max-height:480px;}"
+# グラフ用のラベルリスト
 total_money_label_list_str = '"' + '","'.join(total_money_label_list) + '"'
+# グラフにする値のリスト
 total_money_total_list_str = ','.join(total_money_total_list)
 
+# HTML出力
 html_template = '''
 <html>
 <head>
