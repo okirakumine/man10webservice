@@ -9,3 +9,5 @@ man10上のWebサービス
 ```bash
 sudo pip install mysql
 ```
+
+config.ini.default を config.ini にリネームし、設定をしてください。
