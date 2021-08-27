@@ -35,7 +35,7 @@ connection = None
 loan_data = {}
 total_borrow_amount = 0
 total_borrow_amount_total_list = []
-total_body += "<H3>ユーザー別ローン残高</H3><BR><BR>"
+total_body = "<H3>ユーザー別ローン残高</H3><BR><BR>"
 
 # DBからデータを読み出す
 try:
