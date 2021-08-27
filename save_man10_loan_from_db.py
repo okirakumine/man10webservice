@@ -27,7 +27,7 @@ if config == None:
     sys.exit("1")
 
 CSV_DIR=config["Path"]["CSV_DIR"]
-CSV_PATH=CSV_DIR + DATE + "/"
+CSV_PATH=CSV_DIR + "loan/"
 os.system("mkdir -p " + CSV_PATH)
 LATEST_TOTAL_CSV_PATH=CSV_PATH + "man10_server_loan_total.csv"
 connection = None
