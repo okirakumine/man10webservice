@@ -35,7 +35,8 @@ connection = None
 loan_data = {}
 total_borrow_amount = 0
 total_borrow_amount_total_list = []
-total_body = ""
+total_body += "<H3>ユーザー別ローン残高</H3><BR><BR>"
+
 # DBからデータを読み出す
 try:
     connection = mysql.connector.connect(
@@ -51,7 +52,9 @@ try:
     for player, borrow_amount in cursor:
         loan_data[player] = borrow_amount
         total_borrow_amount += borrow_amount
-        total_body += "<LI><a href = \"{}.html\">{: >16s}</a>: {: >9,d}<br>".format(player, player, int(borrow_amount))
+        # ローン残高がある場合は、グラフの下に書き込むユーザ別のリンクを作る
+        if int(borrow_amount) > 0:
+            total_body += "<LI><a href = \"{}.html\">{: >16s}</a>: {: >9,d}<br>".format(player, player, int(borrow_amount))
 
 except Exception as e:
     print("[ERROR]: ", e)
@@ -78,6 +81,7 @@ def output_html(output_path, name, label, data, body_str):
     html_template = '''
     <html>
     <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
 
@@ -158,9 +162,11 @@ for playername, value in loan_data.items():
         with open(rename_filepath, "r") as f:
             csv_r = csv.reader(f, delimiter=",", doublequote=True, lineterminator="\r\n", quotechar='"', skipinitialspace=True)
             header = next(csv_r)
-            header.append(DATETIME)
             player_borrow_data = next(csv_r)
-            player_borrow_data.append(str(loan_data[playername])) 
+            # 前回と値が異なる場合のみ追記する
+            if player_borrow_data[-1] != str(loan_data[playername]):
+                header.append(DATETIME)
+                player_borrow_data.append(str(loan_data[playername])) 
         os.remove(rename_filepath)
     else:
         header = [DATETIME]
