@@ -1,4 +1,6 @@
-#!/usr/bin/env python3                                                                        # -*- coding: utf-8 -*-
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import sys
 import mysql.connector
 import datetime
@@ -32,6 +34,7 @@ try:
     
     cursor = connection.cursor()
     sql = ('''SELECT total, date FROM server_estate_history''')
+    # sql = ('''SELECT total, date FROM server_estate_history where date >= (NOW() - INTERVAL 3 MONTH)''')
 
     cursor.execute(sql)
 
@@ -48,11 +51,14 @@ finally:
         print("close")
 
 # チャートのスタイル指定文字列
-chart_style_str = "#total_money_line_chart {max-width:1920px;max-height:480px;}"
+total_chart_style_str = "#total_money_line_chart {max-width:1920px;max-height:480px;}"
+last_month_chart_style_str = "#last_month_money_line_chart {max-width:1920px;max-height:480px;}"
 # グラフ用のラベルリスト
 total_money_label_list_str = '"' + '","'.join(total_money_label_list) + '"'
+last_month_money_label_list_str = '"' + '","'.join(total_money_label_list[-30*24:]) + '"'
 # グラフにする値のリスト
 total_money_total_list_str = ','.join(total_money_total_list)
+last_month_money_total_list_str = ','.join(total_money_total_list[-30*24:])
 
 # HTML出力
 html_template = '''
@@ -63,16 +69,23 @@ html_template = '''
 
 <body>
 <style>
-{chart_style_str}
+{total_chart_style_str}
 </style>
-
 <canvas id="total_money_line_chart"></canvas>
 
-<script>
-var ctx = document.getElementById('total_money_line_chart');
+<br>
 
-var data = {{
-    labels: [{labels}],
+<style>
+{last_month_chart_style_str}
+</style>
+<canvas id="last_month_money_line_chart"></canvas>
+
+<script>
+var ctxa = document.getElementById('total_money_line_chart');
+var ctxm = document.getElementById('last_month_money_line_chart');
+
+var total_data = {{
+    labels: [{total_labels}],
     datasets: [{{
         label: 'man10 total money transition',
         data: [{total_data}],
@@ -80,18 +93,33 @@ var data = {{
     }}]
 }};
 
+var last_month_data = {{
+    labels: [{last_month_labels}],
+    datasets: [{{
+        label: 'man10 last month money transition',
+        data: [{last_month_data}],
+        borderColor: 'rgba(100, 100, 255, 1)'
+    }}]
+}};
+
 var options ={{}};
 
-var ex_chart = new Chart(ctx, {{
+var ex_chart = new Chart(ctxa, {{
     type: 'line',
-    data: data,
+    data: total_data,
     options: options
 }});
+
+var ex_chart = new Chart(ctxm, {{
+    type: 'line',
+    data: last_month_data,
+    options: options
+}});
+
 </script>
 </body>
 </html>
-'''.format(chart_style_str = chart_style_str, labels = total_money_label_list_str, total_data = total_money_total_list_str)
-
+'''.format(total_chart_style_str = total_chart_style_str, last_month_chart_style_str = last_month_chart_style_str, total_labels = total_money_label_list_str, last_month_labels = last_month_money_label_list_str, total_data = total_money_total_list_str, last_month_data = last_month_money_total_list_str)
 with open("./index.html", "w") as f:
     f.write(html_template)
 
